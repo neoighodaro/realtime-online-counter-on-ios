@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11542" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="3dK-fd-Ba3">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Navigation Controller-->
+        <scene sceneID="MTz-vZ-7X8">
+            <objects>
+                <navigationController id="3dK-fd-Ba3" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="7JP-QQ-nAD">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="htM-bx-eT4">
+                        <rect key="frame" x="0.0" y="623" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </toolbar>
+                    <connections>
+                        <segue destination="yhh-ue-eVh" kind="relationship" relationship="rootViewController" id="Atp-Yz-QSo"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="RTX-ln-ZFf" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="850" y="-67"/>
+        </scene>
+        <!--Online Counter-->
+        <scene sceneID="Mkq-gq-BQi">
+            <objects>
+                <viewController title="Online Counter" id="yhh-ue-eVh" customClass="MainViewController" customModule="counter" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Cp9-HH-piA"/>
+                        <viewControllerLayoutGuide type="bottom" id="dGT-B4-CMS"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="ZfS-HW-viA">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <webView contentMode="scaleToFill" scalesPageToFit="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GK2-ie-oFT">
+                                <rect key="frame" x="0.0" y="64" width="375" height="203"/>
+                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <dataDetectorType key="dataDetectorTypes"/>
+                            </webView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="i7R-6P-e1V">
+                                <rect key="frame" x="169.5" y="367" width="36" height="60"/>
+                                <fontDescription key="fontDescription" type="system" weight="black" pointSize="50"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="people have seen this video" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wEK-DJ-OXt">
+                                <rect key="frame" x="103" y="427" width="168.5" height="16"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <color key="textColor" red="0.60819089412689209" green="0.6589474081993103" blue="0.68681424856185913" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="GK2-ie-oFT" firstAttribute="leading" secondItem="ZfS-HW-viA" secondAttribute="leading" id="0ya-bO-goL"/>
+                            <constraint firstItem="dGT-B4-CMS" firstAttribute="top" secondItem="GK2-ie-oFT" secondAttribute="bottom" constant="400" id="D5Z-th-cIG"/>
+                            <constraint firstAttribute="trailing" secondItem="GK2-ie-oFT" secondAttribute="trailing" id="H5R-Cg-dUB"/>
+                            <constraint firstItem="i7R-6P-e1V" firstAttribute="top" secondItem="GK2-ie-oFT" secondAttribute="bottom" constant="100" id="IJg-g8-raw"/>
+                            <constraint firstItem="wEK-DJ-OXt" firstAttribute="top" secondItem="i7R-6P-e1V" secondAttribute="bottom" id="NTe-8q-7On"/>
+                            <constraint firstItem="wEK-DJ-OXt" firstAttribute="centerX" secondItem="ZfS-HW-viA" secondAttribute="centerX" id="fQr-NA-X6U"/>
+                            <constraint firstItem="i7R-6P-e1V" firstAttribute="centerX" secondItem="ZfS-HW-viA" secondAttribute="centerX" id="gad-zO-u2F"/>
+                            <constraint firstItem="GK2-ie-oFT" firstAttribute="top" secondItem="Cp9-HH-piA" secondAttribute="bottom" id="pMW-gV-jsr"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Online Counter" id="LRr-s1-Kqi"/>
+                    <connections>
+                        <outlet property="count" destination="i7R-6P-e1V" id="qDR-IX-gd7"/>
+                        <outlet property="webview" destination="GK2-ie-oFT" id="uMw-3B-xIf"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vsx-ZK-K75" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1616.8" y="-67.016491754122939"/>
+        </scene>
+    </scenes>
+</document>
