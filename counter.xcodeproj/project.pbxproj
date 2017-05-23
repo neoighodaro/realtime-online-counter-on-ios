@@ -16,13 +16,12 @@
 
 /* Begin PBXFileReference section */
 		B545983A1ED4104900095684 /* counter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = counter.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		B545983D1ED4104900095684 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = counter/AppDelegate.swift; sourceTree = "<group>"; };
-		B545983F1ED4104900095684 /* counter */ = {isa = PBXFileReference; lastKnownFileType = text; path = counter; sourceTree = "<group>"; };
+		B545983D1ED4104900095684 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B54598421ED4104900095684 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		B54598441ED4104900095684 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = counter/Assets.xcassets; sourceTree = "<group>"; };
+		B54598441ED4104900095684 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B54598471ED4104900095684 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		B54598491ED4104900095684 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; name = Info.plist; path = counter/Info.plist; sourceTree = "<group>"; };
-		B545984F1ED412BA00095684 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MainViewController.swift; path = counter/MainViewController.swift; sourceTree = "<group>"; };
+		B54598491ED4104900095684 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B545984F1ED412BA00095684 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,7 +55,6 @@
 			isa = PBXGroup;
 			children = (
 				B545983D1ED4104900095684 /* AppDelegate.swift */,
-				B545983F1ED4104900095684 /* counter */,
 				B54598411ED4104900095684 /* Main.storyboard */,
 				B54598441ED4104900095684 /* Assets.xcassets */,
 				B54598461ED4104900095684 /* LaunchScreen.storyboard */,
@@ -153,7 +151,6 @@
 				B54598421ED4104900095684 /* Base */,
 			);
 			name = Main.storyboard;
-			path = counter;
 			sourceTree = "<group>";
 		};
 		B54598461ED4104900095684 /* LaunchScreen.storyboard */ = {
@@ -162,7 +159,6 @@
 				B54598471ED4104900095684 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
-			path = counter;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -266,7 +262,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = FMQ6R58UAV;
-				INFOPLIST_FILE = "$(SRCROOT)/counter/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = co.creativitykills.counter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -279,7 +275,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = FMQ6R58UAV;
-				INFOPLIST_FILE = "$(SRCROOT)/counter/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = co.creativitykills.counter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
