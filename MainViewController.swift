@@ -28,7 +28,20 @@ class MainViewController: UIViewController {
     }
     
     func updateViewCount() {
+        let options = PusherClientOptions(
+            host: .cluster("PUSHER_CLUSTER")
+        )
         
+        pusher = Pusher(key: "PUSHER_KEY", options: options)
+        
+        let channel = pusher.subscribe("counter")
+        let _ = channel.bind(eventName: "new_user", callback: { (data: Any?) -> Void in
+            if let data = data as? [String: AnyObject] {
+                let viewCount = data["count"] as! String
+                self.count.text = viewCount
+            }
+        })
+        pusher.connect()
     }
     
     func loadYoutube(videoID:String) {
