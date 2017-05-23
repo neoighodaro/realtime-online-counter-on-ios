@@ -7,19 +7,28 @@
 //
 
 import UIKit
+import PusherSwift
 
 class MainViewController: UIViewController {
 
     @IBOutlet weak var count: UILabel!
     @IBOutlet weak var webview: UIWebView!
+
+    var pusher : Pusher!
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
         loadYoutube(videoID:"xDQ8vzD0lzw")
+        updateViewCount()
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
+    }
+    
+    func updateViewCount() {
+        
     }
     
     func loadYoutube(videoID:String) {
