@@ -94,7 +94,7 @@ private func getEmbedHTML(id: String) -> String {
 
 Now we have instructed the application to load a YouTube video automatically. However, the counter functionality does not function yet. Lets fix that. 
 
-Add a new method to update the counter using Pusher:
+Import the `PusherSwift` library and add a new method to update the counter using Pusher:
 
 ```Swift
 func updateViewCount() {
@@ -107,8 +107,8 @@ func updateViewCount() {
     let channel = pusher.subscribe("counter")
     let _ = channel.bind(eventName: "new_user", callback: { (data: Any?) -> Void in
         if let data = data as? [String: AnyObject] {
-            let viewCount = data["count"] as! String
-            self.count.text = viewCount
+            let viewCount = data["count"] as! NSNumber
+            self.count.text = "\(viewCount)" as String!
         }
     })
     pusher.connect()
@@ -119,23 +119,62 @@ func updateViewCount() {
 
 Now you can just call the `updateViewCount` from the `viewDidLoad` method so it is called when the view is loaded.
 
-After everything, your `MainViewController` should now look a little like this:
+One final thing we will do is use `Alamofire` to send a request to a backend so the counter can be updated and saved, so we do not lose the count of people who have viewed the video. Import `Alamofire` and add the following:
+
+```swift
+func sendViewCount() {
+    Alamofire.request(endpoint, method: .post).validate().responseJSON { response in
+        switch response.result {
+        case .success:
+            if let result = response.result.value {
+                let data = result as! NSDictionary
+                let viewCount = data["count"] as! NSNumber
+                self.count.text = "\(viewCount)" as String!
+            }
+        case .failure(let error):
+            print(error)
+        }
+    }
+}
+```
+
+Now that we are done with that, the`MainViewController` should now look a little like this:
 
 ```swift
 import UIKit
+import Alamofire
 import PusherSwift
 
 class MainViewController: UIViewController {
-
+    
     @IBOutlet weak var count: UILabel!
     @IBOutlet weak var webview: UIWebView!
-
+    
+    var endpoint: String = "http://localhost:4000/update_counter"
+    
     var pusher : Pusher!
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         loadYoutube(videoID:"xDQ8vzD0lzw")
+        sendViewCount()
         updateViewCount()
+    }
+    
+    func sendViewCount() {
+        Alamofire.request(endpoint, method: .post).validate().responseJSON { response in
+            switch response.result {
+                
+            case .success:
+                if let result = response.result.value {
+                    let data = result as! NSDictionary
+                    let viewCount = data["count"] as! NSNumber
+                    self.count.text = "\(viewCount)" as String!
+                }
+            case .failure(let error):
+                print(error)
+            }
+        }
     }
     
     func updateViewCount() {
@@ -148,8 +187,8 @@ class MainViewController: UIViewController {
         let channel = pusher.subscribe("counter")
         let _ = channel.bind(eventName: "new_user", callback: { (data: Any?) -> Void in
             if let data = data as? [String: AnyObject] {
-                let viewCount = data["count"] as! String
-                self.count.text = viewCount
+                let viewCount = data["count"] as! NSNumber
+                self.count.text = "\(viewCount)" as String!
             }
         })
         pusher.connect()
@@ -164,14 +203,82 @@ class MainViewController: UIViewController {
         let url: NSURL = NSURL(string: "https://www.youtube.com/embed/\(videoID)")!
         webview.loadHTMLString(embedHTML as String, baseURL:url as URL )
     }
-
+    
     private func getEmbedHTML(id: String) -> String {
         return "<html><head><style type=\"text/css\">body {background-color: transparent;color: white;}</style></head><body style=\"margin:0\"> <iframe webkit-playsinline width=\"100%\" height=\"100%\" src=\"https://www.youtube.com/embed/\(id)?feature=player_detailpage&playsinline=1\" frameborder=\"0\"></iframe>";
     }
 }
 ```
 
+If we load the application now, it would load the video, but the counter will not work. Mainly because we have not set up a backend logic.
 
+### Creating the backend for our realtime counter iOS application
+
+For the backend, we will be creating a very basic NodeJS application. This application will simply have one endpoint that saves the counter state and sends a trigger to Pusher so other listeners subscribed to the channel event can pick it up and update in realtime.
+
+To start, create a new directory for your application. In the application create two files
+
+##### File: package.json
+
+```json
+{
+  "main": "index.js",
+  "dependencies": {
+    "body-parser": "^1.16.0",
+    "express": "^4.14.1",
+    "pusher": "^1.5.1"
+  }
+}
+```
+
+ ##### File: index.js
+
+```javascript
+var Pusher = require('pusher');
+let express = require('express');
+let bodyParser = require('body-parser');
+let fs = require('fs');
+
+let app = express();
+
+let pusher = new Pusher({
+  appId: 'PUSHER_ID',
+  key: 'PUSHER_KEY',
+  secret: 'PUSHER_SECRET',
+  cluster: 'PUSHER_CLUSTER',
+  encrypted: true
+});
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+
+app.post('/update_counter', function(req, res) {
+  let leFile = './count.txt';
+  var count = parseInt(fs.readFileSync(leFile, 'utf-8')) + 1;
+  fs.writeFile(leFile, count, function (err) {});
+  pusher.trigger('counter', 'new_user', {count:count});
+  res.json({count: count});
+});
+
+app.use(function(req, res, next) {
+    let err = new Error('Not Found');
+    err.status = 404;
+    next(err);
+});
+
+module.exports = app;
+
+app.listen(4000, function(){
+  console.log('App listening on port 4000!')
+})
+```
+
+Finally, create the `counter.txt` file in the same directory and chmod it to be writable.
+
+```shell
+$ echo "0" > count.txt
+$ chmod 0755 count.txt 
+```
 
 
 

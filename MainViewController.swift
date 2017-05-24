@@ -33,8 +33,8 @@ class MainViewController: UIViewController {
             case .success:
                 if let result = response.result.value {
                     let data = result as! NSDictionary
-                    let count = data["count"] as! NSNumber
-                    self.count.text = "\(count)" as String!
+                    let viewCount = data["count"] as! NSNumber
+                    self.count.text = "\(viewCount)" as String!
                 }
             case .failure(let error):
                 print(error)
