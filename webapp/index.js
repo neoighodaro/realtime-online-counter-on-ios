@@ -16,7 +16,7 @@ let pusher = new Pusher({
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-app.get('/update_counter', function(req, res) {
+app.post('/update_counter', function(req, res) {
   let leFile = './count.txt';
   var count = parseInt(fs.readFileSync(leFile, 'utf-8')) + 1;
   fs.writeFile(leFile, count, function (err) {});

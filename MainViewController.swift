@@ -11,14 +11,14 @@ import Alamofire
 import PusherSwift
 
 class MainViewController: UIViewController {
-
+    
     @IBOutlet weak var count: UILabel!
     @IBOutlet weak var webview: UIWebView!
     
     var endpoint: String = "http://localhost:4000/update_counter"
-
+    
     var pusher : Pusher!
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         loadYoutube(videoID:"xDQ8vzD0lzw")
@@ -33,8 +33,8 @@ class MainViewController: UIViewController {
             case .success:
                 if let result = response.result.value {
                     let data = result as! NSDictionary
-                    let count = data["count"] as! String
-                    self.count.text = "\(count)"
+                    let count = data["count"] as! NSNumber
+                    self.count.text = "\(count)" as String!
                 }
             case .failure(let error):
                 print(error)
@@ -52,8 +52,8 @@ class MainViewController: UIViewController {
         let channel = pusher.subscribe("counter")
         let _ = channel.bind(eventName: "new_user", callback: { (data: Any?) -> Void in
             if let data = data as? [String: AnyObject] {
-                let viewCount = data["count"] as! String
-                self.count.text = "\(viewCount)"
+                let viewCount = data["count"] as! NSNumber
+                self.count.text = "\(viewCount)" as String!
             }
         })
         pusher.connect()
@@ -68,7 +68,7 @@ class MainViewController: UIViewController {
         let url: NSURL = NSURL(string: "https://www.youtube.com/embed/\(videoID)")!
         webview.loadHTMLString(embedHTML as String, baseURL:url as URL )
     }
-
+    
     private func getEmbedHTML(id: String) -> String {
         return "<html><head><style type=\"text/css\">body {background-color: transparent;color: white;}</style></head><body style=\"margin:0\"> <iframe webkit-playsinline width=\"100%\" height=\"100%\" src=\"https://www.youtube.com/embed/\(id)?feature=player_detailpage&playsinline=1\" frameborder=\"0\"></iframe>";
     }
