@@ -280,5 +280,16 @@ $ echo "0" > count.txt
 $ chmod 0755 count.txt 
 ```
 
+Now run `npm install` to install all the dependencies that node needs to make the backend application work. When the dependencies are done installing, run `node index.js` to start your application.
 
+One last change we would need to make to allow our application interact with the localhost application is in our projects `info.plist` file. Make the changes below before launching the application:
 
+![Build a realtime counter for iOS using Pusher](https://dl.dropbox.com/s/4q05f8g5bhwholx/realtime-online-counter-on-ios-3.png)
+
+Now, when you launch the application you can see the counter increase, and if there is another instance of the application, they can see the counter increase in realtime. Neat!
+
+### Conclusion
+
+In this article, we explored how you can create realtime counters using Pusher in your iOS applications. We are curious to see how you would incorporate this into your iOS application. If you have any other use cases you would like to see, or have any feedbacks, leave a comment below.
+
+The source code to the application above is available on GitHub [here](https://github.com/neoighodaro/realtime-online-counter-on-ios), you can download it and experiment with the code to see what else is possible.
