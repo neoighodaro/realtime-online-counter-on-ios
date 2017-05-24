@@ -7,24 +7,39 @@
 //
 
 import UIKit
+import Alamofire
 import PusherSwift
 
 class MainViewController: UIViewController {
 
     @IBOutlet weak var count: UILabel!
     @IBOutlet weak var webview: UIWebView!
+    
+    var endpoint: String = "http://localhost:4000/update_counter"
 
     var pusher : Pusher!
 
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         loadYoutube(videoID:"xDQ8vzD0lzw")
+        sendViewCount()
         updateViewCount()
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
+    func sendViewCount() {
+        Alamofire.request(endpoint, method: .post).validate().responseJSON { response in
+            switch response.result {
+                
+            case .success:
+                if let result = response.result.value {
+                    let data = result as! NSDictionary
+                    let count = data["count"] as! String
+                    self.count.text = "\(count)"
+                }
+            case .failure(let error):
+                print(error)
+            }
+        }
     }
     
     func updateViewCount() {
@@ -38,7 +53,7 @@ class MainViewController: UIViewController {
         let _ = channel.bind(eventName: "new_user", callback: { (data: Any?) -> Void in
             if let data = data as? [String: AnyObject] {
                 let viewCount = data["count"] as! String
-                self.count.text = viewCount
+                self.count.text = "\(viewCount)"
             }
         })
         pusher.connect()
