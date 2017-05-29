@@ -17,11 +17,15 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 app.post('/update_counter', function(req, res) {
-  let leFile = './count.txt';
-  var count = parseInt(fs.readFileSync(leFile, 'utf-8')) + 1;
-  fs.writeFile(leFile, count, function (err) {});
-  pusher.trigger('counter', 'new_user', {count:count});
-  res.json({count: count});
+  let counterFile = './count.txt';
+
+  fs.readFile(counterFile, 'utf-8', function(err, count) {
+    count = parseInt(count) + 1;
+    fs.writeFile(counterFile, count, function (err) {
+      pusher.trigger('counter', 'new_user', {count:count});
+      res.json({count:count});
+    });
+  });
 });
 
 app.use(function(req, res, next) {
